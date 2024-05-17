@@ -43,3 +43,5 @@ class User extends Migration
         $this->forge->dropTable('users');
     }
 }
+
+// Referenced Generative AI to develop this page. Chat GPT and Pop AI.

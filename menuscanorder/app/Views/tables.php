@@ -22,7 +22,7 @@
                             <td><?= $table['table_no'] ?></td>
                             <td>
                                 <?php if ($table['table_QR']): ?>
-                                    <img src="<?= base_url('qrcodes/' . $table['table_QR']) ?>" alt="QR Code for Table <?= $table['table_no'] ?>" width="100">                                    <p>No QR Code generated</p>
+                                    <img src="<?= base_url('qrcodes/' . $table['table_QR']) ?>" alt="QR Code for Table <?= $table['table_no'] ?>" width="100">                                   
                                 <?php endif; ?>
                             </td>
                             <td>
@@ -41,3 +41,5 @@
     </div>
 </div>
 <?= $this->endSection() ?>
+
+<!-- Referenced Generative AI to develop this page. Chat GPT and Pop AI. -->

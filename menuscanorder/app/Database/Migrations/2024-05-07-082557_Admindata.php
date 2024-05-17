@@ -28,3 +28,5 @@ class Admindata extends Migration
         $this->db->table('Admin')->where('username', 'admin2@example.com')->delete();
     }
 }
+
+// Referenced Generative AI to develop this page. Chat GPT and Pop AI.

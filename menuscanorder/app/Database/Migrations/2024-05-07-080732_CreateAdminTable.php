@@ -36,3 +36,5 @@ class CreateAdminTable extends Migration
         $this->forge->dropTable('Admin');
     }
 }
+
+// Referenced Generative AI to develop this page. Chat GPT and Pop AI.

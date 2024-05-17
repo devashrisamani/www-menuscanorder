@@ -10,6 +10,8 @@ $restaurantName = session()->get('restaurant_name');
 <?= $this->extend('template') ?>
 <?= $this->section('content') ?>
 
+
+
 <div class="dashboard-container">
     <h2 class="text-center mb-4 heading"><?= $restaurantName ?> Restaurant Menu</h2>
 
@@ -20,6 +22,9 @@ $restaurantName = session()->get('restaurant_name');
         <div class="alert alert-danger"><?= session()->getFlashdata('error'); ?></div>
     <?php endif; ?>
 
+    <div class="d-flex justify-content-end">
+    <a href="<?= site_url('orders'); ?>" class="btn btn-success btn-sm btn-cat ms-2">View Orders</a>
+    </div>
     <div class="d-flex justify-content-end">
     <a href="<?= site_url('addmenuitem'); ?>" class="btn btn-success btn-sm btn-cat ms-2">Add Menu Item</a>
     </div>
@@ -52,3 +57,5 @@ $restaurantName = session()->get('restaurant_name');
 </div>
 
 <?= $this->endSection() ?>
+
+<!-- Referenced Generative AI to develop this page. Chat GPT and Pop AI. -->

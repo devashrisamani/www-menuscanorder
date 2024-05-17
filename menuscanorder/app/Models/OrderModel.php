@@ -24,5 +24,6 @@ class OrderModel extends Model
         return $this->where('table_id', $tableId)->findAll();
     }
     
-    // You can add more methods as needed to handle other order-related logic
 }
+
+// Referenced Generative AI to develop this page. Chat GPT and Pop AI.

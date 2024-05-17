@@ -25,3 +25,5 @@ class AdminModel extends Model
         return false;
     }
 }
+
+// Referenced Generative AI to develop this page. Chat GPT and Pop AI.

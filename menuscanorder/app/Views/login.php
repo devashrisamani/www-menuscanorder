@@ -30,3 +30,5 @@
 </div>
 
 <?= $this->endSection() ?>
+
+<!-- Referenced Generative AI to develop this page. Chat GPT and Pop AI. -->

@@ -159,12 +159,6 @@
     <a href="<?= site_url('userform'); ?>" class="btn btn-success btn-sm btn-cat ms-2">Add Restaurant</a>
     </div>
 
-
-
-
-
-      
-        <!-- Table -->
 <!-- Table -->
 <div class="table-responsive">
   <table class="table">
@@ -217,3 +211,5 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
+
+<!-- Referenced Generative AI to develop this page. Chat GPT and Pop AI. -->

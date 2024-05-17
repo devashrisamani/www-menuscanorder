@@ -52,62 +52,9 @@ $routes->get('/qrcode/download/(:alphanum)', 'MenuController::QRdownload/$1');
 $routes->get('/qrcode/download/(:segment)', 'MenuController::QRdownload/$1');
 
 // Add to cart page routes 
+$routes->get('/addtocart', 'MenuController::addToCart');
+$routes->post('/menu/addcart', 'MenuController::addcart');
 
-
-
-$routes->get('/addtocart', 'MenuController::addtocart');
-
-
-
-
-
-
-
-
-
-
-
-
-
-// $routes->get('admin/add', 'MenuController::addedit');
-// $routes->get('admin/edit/(:num)', 'MenuController::addedit/$1');
-// $routes->post('admin/addedit', 'MenuController::addedit');
-// $routes->post('admin/addedit/(:num)', 'MenuController::addedit/$1');
-
-
-// $routes->match(['GET', 'POST'], 'admin/add', 'MenuController::add');
-// $routes->match(['GET', 'POST'], 'admin/edit/(:num)', 'MenuController::edit/$1');
-
-
-// $routes->group('admin', function($routes) {
-//     $routes->get('/', 'MenuController::admin');
-//     $routes->match(['get', 'post'],'delete/(:num)', 'MenuController::delete/$1');
-// });
-
-// $routes->post('admin/search', 'MenuController::search');
-// $routes->post('admin', 'MenuController::admin');
-
-
-// $routes->group('admin', function($routes) {
-//     $routes->get('/', 'MenuController::admin');
-//     $routes->match(['get', 'post'], 'add', 'MenuController::add');
-//     $routes->match(['get', 'post'], 'edit/(:num)', 'MenuController::edit/$1');
-//     $routes->post('delete/(:num)', 'MenuController::delete/$1');
-// });
-
-
-// $routes->match(['get', 'post'], '/menu/addmenuitem', 'MenuController::addmenuitem');
-
-// $routes->get('/menu', 'MenuController::menu');
-// $routes->match(['get', 'post'], '/menu/addmenuitem', 'MenuController::addmenuitem');
-
-// $routes->get('/addmenuitem', 'MenuController::addmenuitem'); 
-// $routes->match(['get', 'post'], 'editmenuitem/(:num)', 'MenuController::editmenuitem/$1');
-
-// $routes->post('deletemenuitem/(:num)', 'MenuController::deletemenuitem/$1');
-// $routes->get('menu/deletemenuitem/(:num)', 'MenuController::deletemenuitem/$1');
-
-// $routes->get('menu/editmenuitem/(:segment)', 'MenuController::editmenuitem/\$1');
-
-// $routes->post('menu/editmenuitem/(:segment)', 'MenuController::editmenuitem/\$1');
-// $routes->get('menu/editmenuitem/(:segment)', 'MenuController::editmenuitem');
+$routes->get('/cart_items', 'MenuController::index');
+$routes->get('/orders', 'MenuController::orders');
+$routes->get('/getOrders', 'MenuController::getOrders');

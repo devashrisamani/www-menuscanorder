@@ -26,3 +26,5 @@ class Adduserid extends Migration
         $this->forge->dropColumn('Restaurants', 'user_id');
     }
 }
+
+// Referenced Generative AI to develop this page. Chat GPT and Pop AI.

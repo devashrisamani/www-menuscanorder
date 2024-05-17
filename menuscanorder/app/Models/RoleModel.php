@@ -27,3 +27,5 @@ class RoleModel extends Model
         return $this->where('role_name', $roleName)->first();
     }
 }
+
+// Referenced Generative AI to develop this page. Chat GPT and Pop AI.

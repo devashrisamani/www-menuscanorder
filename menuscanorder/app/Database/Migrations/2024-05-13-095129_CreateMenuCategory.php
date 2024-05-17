@@ -38,3 +38,5 @@ class CreateMenuCategory extends Migration
         $this->forge->dropTable('MenuCategory', TRUE);
     }
 }
+
+// Referenced Generative AI to develop this page. Chat GPT and Pop AI.

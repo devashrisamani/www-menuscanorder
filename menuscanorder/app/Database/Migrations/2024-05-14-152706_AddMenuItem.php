@@ -32,3 +32,5 @@ class AddMenuItem extends Migration
         $this->forge->dropColumn('MenuItem', 'user_id');
     }
 }
+
+// Referenced Generative AI to develop this page. Chat GPT and Pop AI.

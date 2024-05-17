@@ -35,3 +35,5 @@ class CreateQrTable extends Migration
         $this->forge->dropTable('tables');
     }
 }
+
+// Referenced Generative AI to develop this page. Chat GPT and Pop AI.

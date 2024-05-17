@@ -14,3 +14,6 @@ class TableModel extends Model
         return $this->where('user_id', $userId)->findAll();
     }
 }
+
+// Referenced Generative AI to develop this page. Chat GPT and Pop AI.
+

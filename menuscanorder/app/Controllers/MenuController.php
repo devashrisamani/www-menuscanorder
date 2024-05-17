@@ -6,6 +6,8 @@ use App\Models\AdminModel;
 use App\Models\RestaurantTableModel;
 use App\Models\MenuItemModel;
 use App\Models\TableModel;
+use App\Models\CartItemModel;
+
 use Endroid\QrCode\QrCode;
 use Endroid\QrCode\ErrorCorrectionLevel;
 use Endroid\QrCode\Writer\PngWriter;
@@ -26,20 +28,6 @@ class MenuController extends BaseController
 
     public function index()
     {
-        // if (!$this->session->has('user_email')) {
-        //     return redirect()->to('/login'); // Redirect to login page if user is not logged in
-        // }
-    
-        // $userEmail = $this->session->get('user_email');
-        // $userInfo = $this->userModel->getUserByEmail($userEmail); // Fetch user information by email
-    
-        // // Here we use the 'restaurant_name' instead of 'name'
-     
-    
-        // $menuItemModel = new MenuItemModel();
-        // $userId = $this->session->get('user_id');
-        // $data['menuItems'] = $menuItemModel->where('user_id', $userId)->findAll();
-    
         return view('menu', $data); // Pass data to the view
     }
     
@@ -308,49 +296,7 @@ class MenuController extends BaseController
     }
 
 
-    // public function addCategory($id = null)
-    // {
-    // $model = new MenuCategoryModel();
-
-    // // Check if the request is a POST request (form submission).
-    // if ($this->request->getMethod() === 'POST') {
-    //     // Retrieve the submitted form data.
-    //     $data = $this->request->getPost();
-
-    //     // If no ID is provided, it's an add operation.
-    //     if ($id === null) {
-    //         if ($model->insert($data)) {
-    //             // If the user is successfully added, set a success message.
-    //             $this->session->setFlashdata('success', 'User added successfully.');
-    //         } else {
-    //             // If the addition fails, set an error message.
-    //             $this->session->setFlashdata('error', 'Failed to add user. Please try again.');
-    //         }
-    //     } else {
-    //         // If an ID is provided, it's an edit operation.
-    //         if ($model->update($id, $data)) {
-    //             // If the user is successfully updated, set a success message.
-    //             $this->session->setFlashdata('success', 'User updated successfully.');
-    //         } else {
-    //             // If the update fails, set an error message.
-    //             $this->session->setFlashdata('error', 'Failed to update user. Please try again.');
-    //         }
-    //     }
-
-    //     // Redirect back to the admin page after the operation.
-    //     $data['name'] = 'Your Name'; // Replace with dynamic data as needed
-    //     return redirect()->to('/menu');
-    // }
-
-    // // If the request is a GET request, load the form with existing user data (for edit) or as blank (for add).
-    // $data['menucategory'] = ($id === null) ? null : $model->find($id);
-
-    // // Display the add/edit form view, passing in the user data if available.
-    // return view('addcategory', $data);
-    // }
-
-
-
+    
     public function registerUser()
     {
     // Load the UserModel
@@ -450,7 +396,9 @@ class MenuController extends BaseController
         
         if ($table) {
             $userId = $table['user_id'];
-            $qrCodeData = base_url('addtocart/' . $userId . '/' . $table['table_no']);
+            $tableNumber = $table['table_no'];
+            $qrCodeData = site_url("addtocart?table={$table['table_no']}&restaurant_id={$userId}");
+            // $qrCodeData = base_url('addtocart/' . $tableId);
             $qrCode = QrCode::create($qrCodeData);
             $qrCodeFilename = 'qrcode_table_' . $table['table_no'] . '.png';
             $qrCodePath = FCPATH . 'qrcodes/' . $qrCodeFilename;
@@ -478,12 +426,46 @@ class MenuController extends BaseController
         }
     }
 
-    public function addToCart()
-{
-    // Retrieve the user and table details based on the provided user ID and table number
- return view('addtocart');
-}
     
+    public function addtocart(){
+        return view('addtocart');
+    }
+    public function addcart()
+{
+    // Get the item_id, table_id, and quantity from the AJAX request
+    $itemId = $this->request->getPost('item_id');
+    $tableId = $this->request->getPost('table_id');
+    $quantity = $this->request->getPost('quantity');
+
+    // Retrieve the table record based on the tableId
+    $tableModel = new TableModel();
+    $table = $tableModel->find($tableId);
+
+    if ($table) {
+        $tableNumber = $table['table_no'];
+
+        // Load the CartItemModel
+        $cartItemModel = new \App\Models\CartItemModel();
+
+        // Check if the item already exists in the cart for the same table
+        $existingItem = $cartItemModel->where('item_id', $itemId)
+                                       ->where('table_no', $tableNumber)
+                                       ->first();
+
+         
+            $cartItemModel->insert([
+                'item_id' => $itemId,
+                'user_id' => session()->get('user_id'),
+                'table_no' => $tableNumber,
+                'quantity' => 1
+            ]);
+        
+
+        return $this->response->setJSON(['success' => true, 'message' => 'Item added to cart successfully.']);
+    } else {
+        return $this->response->setJSON(['success' => false, 'message' => 'Table not found.']);
+    }
+}
     public function tables()
     {
         $userId = session()->GET('user_id');
@@ -523,11 +505,54 @@ class MenuController extends BaseController
     return redirect()->to('/tables')->with('success', 'Table added successfully.');
 }
 
-// Add to cart page functions 
+public function getOrders()
+{
+    // Get the user_id and table_no from the request parameters
+    $userId = $this->request->getGet('user_id');
+    $tableNo = $this->request->getGet('table_no');
+
+    // Create an instance of the CartItemModel
+    $cartItemModel = new CartItemModel();
+
+    // Fetch the orders corresponding to the user_id and table_no
+    $orders = $cartItemModel->select('cart_items.*, menu_items.name, menu_items.price')
+        ->join('menu_items', 'cart_items.item_id = menu_items.item_id')
+        ->where('cart_items.user_id', $userId)
+        ->where('cart_items.table_no', $tableNo)
+        ->findAll();
+
+    // Return the orders as JSON response
+    return $this->response->setJSON($orders);
+}
 
 
+public function orders()
+{
+    $userId = session()->GET('user_id');
+    $data['userId'] = $userId;
 
+    // Fetch all the unique table numbers for the logged-in user
+    $tableModel = new TableModel();
+    $tables = $tableModel->select('table_no')->where('user_id', $userId)->findAll();
+    $data['tables'] = $tables;
 
+    return view('orders', $data);
+}
+// public function orders()
+// {
+//     $userId = session()->get('user_id');
+
+//     // Load the CartItemModel
+//     $cartItemModel = new \App\Models\CartItemModel();
+
+//     // Retrieve the cart items for the logged-in user
+//     $cartItems = $cartItemModel->where('user_id', $userId)->findAll();
+
+//     // Pass the cart items data to the view
+//     $data['cartItems'] = $cartItems;
+
+//     return view('orders', $data);
+// }
 
 
 }

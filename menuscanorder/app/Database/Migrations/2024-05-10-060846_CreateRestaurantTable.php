@@ -39,3 +39,5 @@ class CreateRestaurantTable extends Migration
         $this->forge->dropTable('Restaurant', TRUE);
     }
 }
+
+// Referenced Generative AI to develop this page. Chat GPT and Pop AI.
