@@ -156,7 +156,7 @@
         
 
         <div class="d-flex justify-content-end">
-    <a href="<?= site_url('userform'); ?>" class="btn btn-success btn-sm btn-cat ms-2">Add Restaurant</a>
+    <a href="<?= site_url('userform'); ?>" class="btn btn-success btn-sm btn-cat btn-add ms-2">Add Restaurant</a>
     </div>
 
 <!-- Table -->
@@ -183,10 +183,10 @@
           <td><?= esc($user['contact_address']); ?></td>
           <td><?= esc($user['contact_number']); ?></td>
           <td>
-            <a href="<?= base_url('admin/edit/'.$user['id']); ?>" class="btn btn-outline-primary btn-sm">
+            <a href="<?= base_url('admin/edit/'.$user['id']); ?>" class="btn btn-outline-dark btn-sm">
               <i class="bi bi-pencil-square"></i>
             </a>
-            <a href="<?= base_url('admin/delete/'.$user['id']); ?>" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure you want to delete this user?');">
+            <a href="<?= base_url('admin/delete/'.$user['id']); ?>" class="btn btn-outline-dark btn-sm" onclick="return confirm('Are you sure you want to delete this user?');">
               <i class="bi bi-trash"></i>
             </a>
           </td>

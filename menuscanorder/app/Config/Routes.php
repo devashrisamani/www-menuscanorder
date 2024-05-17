@@ -55,6 +55,6 @@ $routes->get('/qrcode/download/(:segment)', 'MenuController::QRdownload/$1');
 $routes->get('/addtocart', 'MenuController::addToCart');
 $routes->post('/menu/addcart', 'MenuController::addcart');
 
-$routes->get('/cart_items', 'MenuController::index');
-$routes->get('/orders', 'MenuController::orders');
-$routes->get('/getOrders', 'MenuController::getOrders');
+$routes->GET('/cart_items', 'MenuController::index');
+$routes->GET('/orders', 'MenuController::orders');
+$routes->GET('/getOrders', 'MenuController::getOrders');

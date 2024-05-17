@@ -23,9 +23,6 @@ $restaurantName = session()->get('restaurant_name');
     <?php endif; ?>
 
     <div class="d-flex justify-content-end">
-    <a href="<?= site_url('orders'); ?>" class="btn btn-success btn-sm btn-cat ms-2">View Orders</a>
-    </div>
-    <div class="d-flex justify-content-end">
     <a href="<?= site_url('addmenuitem'); ?>" class="btn btn-success btn-sm btn-cat ms-2">Add Menu Item</a>
     </div>
 

@@ -515,26 +515,26 @@ public function getOrders()
     $cartItemModel = new CartItemModel();
 
     // Fetch the orders corresponding to the user_id and table_no
-    $orders = $cartItemModel->select('cart_items.*, menu_items.name, menu_items.price')
-        ->join('menu_items', 'cart_items.item_id = menu_items.item_id')
-        ->where('cart_items.user_id', $userId)
-        ->where('cart_items.table_no', $tableNo)
+    $orders = $cartItemModel->select('item_id, user_id, table_no, quantity')
+        ->where('user_id', $userId)
+        ->where('table_no', $tableNo)
         ->findAll();
 
     // Return the orders as JSON response
     return $this->response->setJSON($orders);
 }
 
-
 public function orders()
 {
-    $userId = session()->GET('user_id');
-    $data['userId'] = $userId;
+    $userId = session()->get('user_id');
 
-    // Fetch all the unique table numbers for the logged-in user
-    $tableModel = new TableModel();
-    $tables = $tableModel->select('table_no')->where('user_id', $userId)->findAll();
-    $data['tables'] = $tables;
+    // Create an instance of the CartItemModel
+    $cartItemModel = new CartItemModel();
+
+    // Fetch all the orders for the logged-in user
+    $orders = $cartItemModel->where('user_id', $userId)->findAll();
+
+    $data['orders'] = $orders;
 
     return view('orders', $data);
 }

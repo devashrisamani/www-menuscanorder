@@ -3,8 +3,8 @@
 <div class="dashboard-container">
     <h2 class="text-center mb-5 heading">Manage Tables & QR Codes</h2>
     <!-- Button to add a new table -->
-    <div class="mb-4 text-right">
-        <a href="<?= base_url('/tables/add') ?>" class="btn btn-success">Add Table</a>
+    <div class="mb-4 text-right d-flex justify-content-end"> 
+        <a href="<?= base_url('/tables/add') ?>" class="btn btn-add" style="color:white;">Add Table</a>
     </div>
     <div class="table-responsive">
         <table class="table">
@@ -27,7 +27,7 @@
                             </td>
                             <td>
                                 <?php if ($table['table_QR']): ?>
-                                    <a href="<?= base_url('qrcodes/' . $table['table_QR']) ?>" class="btn btn-sm btn-primary" download>Download</a>
+                                    <a href="<?= base_url('qrcodes/' . $table['table_QR']) ?>" class="btn btn-outline-dark btn-sm" download>Download</a>
                                 <?php endif; ?>
                                 <a href="<?= base_url('/qrcode/generate/' . $table['id']) ?>" class="btn btn-sm btn-secondary">Generate</a>
                             </td>

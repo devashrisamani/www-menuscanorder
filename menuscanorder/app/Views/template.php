@@ -21,10 +21,10 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= base_url(); ?>">Menu</a>
+                        <a class="nav-link" href="<?= base_url('menu'); ?>">Menu</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="orders.html">Orders</a>
+                        <a class="nav-link" href="<?= base_url('orders'); ?>">Orders</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="<?= base_url('tables'); ?>">QR Generator</a>
